@@ -15,7 +15,6 @@ export const add = async (req) => {
     if (!validMonths.includes(month)) {
         throw new Error("Enter valid Month.");
     }
-
     // add the user
     const user = new User({
         budget,

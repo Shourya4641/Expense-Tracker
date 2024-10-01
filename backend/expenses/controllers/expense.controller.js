@@ -1,4 +1,4 @@
-import { add, update, del, view, summary } from "../models/expense.model.js";
+import { add, update, del, view, summary, monthExpense } from "../models/expense.model.js";
 export const addExpense = async (req, res) => {
     try {
         const response = await add(req);
@@ -50,6 +50,17 @@ export const getSummary = async (req, res) => {
         res.status(201).json({ message: 'Summary fetched successfully', response });    
     } catch (error) {
         console.log('error in viewing expense summary:' + error.message);
+        res.status(500).json({message: 'internal server-error'});
+    }
+};
+
+export const getMonthExpense = async (req, res) => {
+    try {
+        const response = await monthExpense(req);
+
+        res.status(201).json({ message: 'Monthly expense fetched successfully', response });
+    } catch (error) {
+        console.log('error in viewing monthly expense:' + error.message);
         res.status(500).json({message: 'internal server-error'});
     }
 };

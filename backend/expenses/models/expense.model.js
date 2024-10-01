@@ -206,3 +206,33 @@ export const summary = async (req) => {
 
 };
 
+export const monthExpense = async (req) => {
+    try {
+        // get the month from the user
+        const { month } = req.body;
+
+        // check if month is valid
+        if (!month) {
+            throw new Error('no month fetched.');
+        }
+
+        // get the document based on the month
+        const user = await User.findOne({ month: month });
+
+        // check if the user is valid
+        if (!user) {
+            throw new Error('no user fetched.');
+        }
+
+        const expenses = user.expenses;
+
+        if (!expenses) {
+            throw new Error('no expenses fetched.');
+        }
+
+        return expenses;
+    } catch (error) {
+        console.error("Error in displaying monthly expenses:", error);
+    }
+};
+
