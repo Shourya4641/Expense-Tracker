@@ -15,6 +15,14 @@ export const add = async (req) => {
     if (!validMonths.includes(month)) {
         throw new Error("Enter valid Month.");
     }
+
+    // check if any existing month expense is already registered
+    const existingMonth = await User.findOne({ month });
+
+    if (existingMonth) {
+        throw new Error('Expense for the month already exists.');
+    }
+        
     // add the user
     const user = new User({
         budget,
